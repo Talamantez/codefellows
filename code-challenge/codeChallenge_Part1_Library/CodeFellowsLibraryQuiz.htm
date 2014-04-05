@@ -89,10 +89,13 @@ var theJoyOfCooking = new book(publicLibrary, cookingShelf, "The Joy of Cooking"
 var inColdBlood = new book(publicLibrary, crimeShelf, "In Cold Blood");
 var theDevilInTheWhiteCity = new book(publicLibrary, crimeShelf, "The Devil in the White City");
 
-//unshelf "In Cold Blood" and moved to checkedOut
+//unshelf some books and moved to checkedOut
 inColdBlood.unshelf();
-//**uncomment below code to check "In Cold Blood" back in
+theJoyOfCooking.unshelf();
+
+//**uncomment below code to check the books back in
 //inColdBlood.enshelf(crimeShelf);
+//theJoyOfCooking.enshelf(cookingShelf);
 
 /*DOM maniputation*/
 //route the library title to the header
