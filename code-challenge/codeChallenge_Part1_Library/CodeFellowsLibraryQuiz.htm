@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Codefellows Library Code Challenge Talamantez</title>
+  
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" charset="utf-8">></script>
+  
+<script type="text/javascript">//<![CDATA[ 
+$(window).load(function(){
+/*Class definitions*/
+//library class
+function library(name) {
+    this.name = name;
+    this.shelves = [];
+    this.shelfCount = function () {
+        var shelfNumber = this.shelves.length;
+        //subtract one for "checked out" status
+        shelfNumber = shelfNumber - 1;
+        return shelfNumber;
+    }
+    this.bookCount = function () {
+        var bookNumber = 0;
+        for (i = 0; i < this.shelves.length; i++) {
+            bookNumber += this.shelves[i].books.length;
+        }
+        return bookNumber;
+    };
+    this.bookList = function () {
+        var fullBookList = [];
+        for (i = 0; i < this.shelves.length; i++) {
+            for (j = 0; j < this.shelves[i].books.length; j++) {
+                fullBookList.push(this.shelves[i].books[j].title);
+            }
+        }
+    }
+}
+
+//shelf class
+function shelf(library, section) {
+    this.section = section;
+    library.shelves.push(this);
+    this.books = [];
+}
+
+//book class
+function book(library, shelf, title) {
+    this.title = title;
+    shelf.books.push(this);
+    this.checkedOut = false;
+    this.unshelf = function () {
+        var i = shelf.books.indexOf(this);
+        if (i != -1) {
+            shelf.books.splice(i, 1);
+        }
+        this.checkedOut = true;
+        this.shelf = checkedOut;
+        this.shelf.books.push(this);
+    }
+
+   this.enshelf = function (shelf) {
+        for (var i = 0; i < library.shelves.length; i++) {
+            if (library.shelves[i].section == "Checked Out") {
+                        window.alert(library.shelves[i].section);
+                        var j = library.shelves[i].books.indexOf(this);
+                                if (j != -1) {
+                                        library.shelves[i].books.splice(j, 1);
+                                              }
+                }
+        }
+    
+
+    shelf.books.push(this);
+    this.checkedOut = false;
+}
+}
+
+/* Class instatiation*/
+
+//make the publicLibrary object
+var publicLibrary = new library("Public");
+//add shelves to the publicLibrary
+var cookingShelf = new shelf(publicLibrary, "Cookbooks");
+var crimeShelf = new shelf(publicLibrary, "True Crime");
+var checkedOut = new shelf(publicLibrary, "Checked Out");
+//add books to the cookingShelf
+var piesForAllOccasions = new book(publicLibrary, cookingShelf, "Pies for All Occasions");
+var theJoyOfCooking = new book(publicLibrary, cookingShelf, "The Joy of Cooking");
+//add books to the crimeShelf
+var inColdBlood = new book(publicLibrary, crimeShelf, "In Cold Blood");
+var theDevilInTheWhiteCity = new book(publicLibrary, crimeShelf, "The Devil in the White City");
+
+//unshelf "In Cold Blood" and moved to checkedOut
+inColdBlood.unshelf();
+//**uncomment below code to check "In Cold Blood" back in
+//inColdBlood.enshelf(crimeShelf);
+
+/*DOM maniputation*/
+//route the library title to the header
+$('header h1').text('Welcome to the ' + publicLibrary.name + ' Library');
+
+//append shelf count, book count and checked out book count
+$('body').append('<div> There are ' + publicLibrary.shelfCount() + ' shelves and ' + publicLibrary.bookCount() + ' books in the library collection.</div>');
+$('body').append('<div>Number of checked out books: ' + checkedOut.books.length + '</div>');
+
+//Generate a div and id for each shelf, list books and assign an id to each list item 
+
+for (var i = 0; i < publicLibrary.shelves.length; i++) {
+    $('body').append('<div ' + 'id="' + publicLibrary.shelves[i].section + '">' + '<h2>' + publicLibrary.shelves[i].section + '</h2>' + '</div>');
+    for (var j = 0; j < publicLibrary.shelves[i].books.length; j++) {
+        var thisBook = publicLibrary.shelves[i].books[j];
+        $('body').append('<li><div id="' + thisBook.title + '">' + thisBook.title);
+    }
+}
+});//]]>  
+
+</script>
+
+
+</head>
+<header><h1></h1></header>
+<body>
+</body>
