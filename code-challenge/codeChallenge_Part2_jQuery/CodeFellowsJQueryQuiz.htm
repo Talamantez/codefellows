@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>jQuery Task Manager CodeFellows Code Challenge Part2</title>
+  
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+  
+ 
+  <style type="text/css">
+    #task {
+    color:red;
+}
+.listItem {
+    color:green;
+}
+  </style>
+  
+
+
+<script type="text/javascript">//<![CDATA[ 
+$(window).load(function(){
+$("#addTask").click(function () {
+    var $newTask = $("#task").val();
+    $("#list").append("<li class=\"listItem\">" + $newTask + "</li>");
+    var $listItem = $(".listItem");
+    $listItem.on("click", function () {
+        $(this).remove();
+    });
+});
+});//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <input id="task" value="Type task here!" type="text">
+<input id="addTask" value="Add task to list" type="button">
+<p>Task List (click item to delete it):</p>
+<div id="list"></div>
+  
+
+
+
+
+
+</body></html>
