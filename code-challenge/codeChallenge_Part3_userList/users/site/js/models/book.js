@@ -3,7 +3,11 @@
 var app = app || {};
 
 app.Book = Backbone.Model.extend({
-		
+	parse: function( response ){
+		response.id = response._id;
+		console.log(response);
+		return response;	
+	},	
 	defaults: {
 		coverImage: 'img/placeholder.png',
 		title: 'No title',
@@ -11,4 +15,6 @@ app.Book = Backbone.Model.extend({
 		releaseDate: 'Unknown',
 		keywords: 'None'
 	}
+
+	
 });
