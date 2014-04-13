@@ -2,21 +2,23 @@
 <html land="en">
 <head>
 	<meta charset="UTF-8"/>
-	<title>Backbone.js Library</title>
+	<title>Backbone User List</title>
 	<link rel="stylesheet" href="css/screen.css">
 	<link rel="stylesheet" href="css/jquery-ui-1.10.4.custom.min.css">
 </head>
 <body>
-		<script id="bookTemplate" type="text/template">
-		<img src="<%= coverImage %>">
+
+		<script id="userTemplate" type="text/template"><div>
 		<ul>
-			<li><%= title %></li>
-			<li><%= author %></li>
-			<li><%= $.format.date( new Date( releaseDate ), 'MMMM yyyy' ) %></li>
-			<li><% _.each( keywords, function( keyobj ) {%>
-				<%= keyobj.keyword %><% } ); %></li>
+			<li><div class="contactLabel" class="name">Full Name:  </span><span class="contactData"><%= name %></span></li>
+			<li><div class="contactLabel" class="email">Email:      </span><span class="contactData"><%= email %></span></li>
+			<li><div class="contactLabel" class="birthDate">DOB:        </span><span class="contactData"><%= $.format.date( new Date( birthDate ), 'MM/dd/yyyy' ) %></span></li>
+			<li><div class="contactLabel" class="role">Role(s):    </span><span class="contactData"><%= role %></span></li>
+			<li><div class="contactLabel" class="id">Database Id:</span><span class="contactData"><%= _id %></span></li>
 		</ul>
+		<button  id=<%= _id %> class="edit">Edit</button>
 		<button class="delete">Delete</button>
+		</div>
 	</script>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
@@ -24,30 +26,95 @@
 	<script src="js/lib/jquery-ui-1.10.4.custom.min.js"></script>
 	<script src="http://ajax.cdnjs.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
 	<script src="http://ajax.cdnjs.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
-	<script src="js/models/book.js"></script>
-	<script src="js/collections/library.js"></script>
-	<script src="js/views/book.js"></script>
-	<script src="js/views/library.js"></script>
+	<script src="js/models/user.js"></script>
+	<script src="js/collections/userCollection.js"></script>
+	<script src="js/views/user.js"></script>
+	<script src="js/views/userCollection.js"></script>
 	<script src="js/app.js"></script>
-	
-	
 
-	
-	<div id="books">
-		<form id="addBook" action="#">
-			<div>
-				<label for="coverImage">CoverImage: </label>
-				<input id="coverImage" type="file" /></br>
-				<label for="title">Title: </label><input id="title" type="text" />
-				<label for="author">Author: </label><input id="author" type="text" />
-				<label for="releaseDate">Release date: </label>
-				<input id="releaseDate" type="text" />
-				<label for="keywords">Keywords: </label>
-				<input id="keywords" type="text" />
+	<div id="users">
+		<div id="addNewUser">
+		<form id="addUser" action="#">
+		<h2>add a user...</h2>
+			<div><div class="userInput">
+				<label for="name">Full Name</label><input id="name" type="text" />
+				</div>
+				<div class="userInput">
+				<label for="email">Email: </label><input id="email" type="email" />
+				</div>
+				<div class="userInput">
+				<label for="birthDate">Birthdate: </label>
+				<input id="birthDate" type="text" />
+				</div>
+				<div class="userInput">
+				<label for="role">Role(s): </label>
+				<input id="role" type="text" />
+				</div>
+				<div class="userInput">
 				<button id="add">Add</button>
+				</div>
 			</div>
 		</form>
 	</div>
+	<div id="editExistingUser">	
+	<form id="updateUser" action="#">
+			<h2>edit a user...</h2>
+			<div>
+				<div class="userInput">
+				<label for="name">Full Name</label><input id="updateName" type="text" />
+				</div>
+				<div class="userInput">
+				<label for="email">Email: </label><input id="updateEmail" type="email" />
+				</div>
+				<div class="userInput">
+				<label for="birthDate">Birthdate: </label>
+				<input id="updateBirthDate" type="text" />
+				</div>
+				<div class="userInput">
+				<label for="role">Role(s): </label>
+				<input id="updateRole" type="text" />
+				</div>
+				<div class="userInput">
+				<label for="id">Id: </label>
+				<input id="updateId" type="text"/>
+				</div>
+				<div class="userInput">
+				<button id="update">Update</button>
 
+				</div>
+			</div>
+		</form>
+	</div>	
+	</br>
+</div>
+
+<!-- email field validation from http://jsfiddle.net/gabrieleromanato/Ra85j/ -->
+
+<script type="text/javascript">
+var validateEmail = function(elementValue) {
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(elementValue);
+}
+
+$('#email').keyup(function() {
+    var value = $(this).val();
+    var valid = validateEmail(value);
+    if (!valid) {
+        $(this).css('color', 'red');
+    } else {
+        $(this).css('color', '#000');
+    }
+});
+$('#updateEmail').keyup(function() {
+    var value = $(this).val();
+    var valid = validateEmail(value);
+    if (!valid) {
+        $(this).css('color', 'red');
+    } else {
+        $(this).css('color', '#000');
+    }
+});
+
+</script>
 </body>
 </html>

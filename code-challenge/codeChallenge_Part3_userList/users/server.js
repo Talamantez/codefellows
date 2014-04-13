@@ -33,8 +33,7 @@ app.listen( port, function(){
 	port, app.settings.env );
 });
 //Connect to database
-//mongoose.connect( process.env.MONGOLAB_URI ||'mongodb://localhost/library_database' );
-var uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/library_database';
+var uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/user_database';
 mongoose.connect(uristring, function (err, res) {
   if (err) {
   console.log ('ERROR connecting to: ' + uristring + '. ' + err);
@@ -44,39 +43,44 @@ mongoose.connect(uristring, function (err, res) {
 });
 
 //Schemas
-var Keywords = new mongoose.Schema({
-	keyword: String
-});
-var Book = new mongoose.Schema({
-	title: String,
-	author: String,
-	releaseDate: Date,
-	keywords: [ Keywords ],
+// var Roles = new mongoose.Schema({
+	// role: String
+// });
+var User = new mongoose.Schema({
+	name: String,
+	email: String,
+	birthDate: Date,
+	role: String
 });
 
 //Models
-var BookModel = mongoose.model( 'Book' , Book );
+var UserModel = mongoose.model( 'User' , User );
 
 
 //Routes
- app.get( '/api', function( request,response ){
-	response.send( 'Library API is running' );
+app.get('/edit', function( request, response ){
+	response.send( 'Edit route is running' );
+});
+
+app.get( '/api', function( request,response ){
+	response.send( 'User API is running' );
 }); 
 
-app.get( '/api/books', function( request,response ) {
-	return BookModel.find( function( err, books ){
+app.get( '/api/users', function( request,response ) {
+	return UserModel.find( function( err, users ){
 		if( !err ){
-			return response.send( books );
+			return response.send( users );
 		} else {
 			return console.log( err );
 		}
 	});
 });
-//Get a single book by id
-app.get('/api/books/:id', function( request, response ){
-		return BookModel.findById( request.params.id,function( err,book ){
+//Get a single user by id
+
+app.get('/api/users/:id', function( request, response ){
+		return UserModel.findById( request.params.id,function( err,user ){
 			if( !err ){
-				return response.send( book );
+				return response.send( user );
 			} else {
 				return console.log( err );
 			}
@@ -84,50 +88,50 @@ app.get('/api/books/:id', function( request, response ){
 		});
 });
 
-//Insert a new book
-app.post('/api/books', function( request, response ){
-	var book = new BookModel({
-		title: request.body.title,
-		author: request.body.author,
-		releaseDate: request.body.releaseDate,
-		keywords: request.body.keywords
+//Insert a new user
+app.post('/api/users', function( request, response ){
+	var user = new UserModel({
+		name: request.body.name,
+		email: request.body.email,
+		birthDate: request.body.birthDate,
+		role: request.body.role
 	});
-	book.save( function( err ){
+	user.save( function( err ){
 		if( !err ){
 			return console.log( 'created' );
 		} else {
 			return console.log( err );
 		}
 	});	
-	return response.send( book );
+	return response.send( user );
 });
 
-//Update a book
-app.put( '/api/books/:id', function( request, response ){
-		console.log(' Updating Book ' + request.body.title );
-		return BookModel.findById( request.params.id, function( err,book ){
-			book.title = request.body.title;
-			book.author = request.body.author;
-			book.releaseDate = request.body.releaseDate;
-			book.keywords = request.body.keywords;
+//Update a user
+app.put( '/api/users/:id', function( request, response ){
+		console.log(' Updating User ' + request.body.name );
+		return UserModel.findById( request.params.id, function( err,user ){
+			user.name = request.body.name;
+			user.email = request.body.email;
+			user.birthDate = request.body.birthDate;
+			user.role = request.body.role;
 			
-		return book.save( function( err ) {
+		return user.save( function( err ) {
 				if( !err ){
-					console.log( 'book updated' );
+					console.log( 'user updated' );
 				} else {
 					console.log( err );
 				}
-				return response.send( book );
+				return response.send( user );
 			});
 		});
 	});
-	
-app.delete( '/api/books/:id', function( request, response ){
-	console.log( 'Deleting book with id: ' + request.params.id );
-	return BookModel.findById( request.params.id, function( err,book ){
-		return book.remove( function( err ){
+
+app.delete( '/api/users/:id', function( request, response ){
+	console.log( 'Deleting user with id: ' + request.params.id );
+	return UserModel.findById( request.params.id, function( err,user ){
+		return user.remove( function( err ){
 			if( !err ){
-				console.log( 'Book removed' );
+				console.log( 'User removed' );
 			} else {
 				console.log( err );
 			}

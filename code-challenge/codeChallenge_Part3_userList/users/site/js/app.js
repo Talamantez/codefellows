@@ -2,14 +2,16 @@
 
 var app = app || {};
 
-app.Library = Backbone.Collection.extend({
-	model: app.Book,
-	url: '/api/books'
+app.UserCollection = Backbone.Collection.extend({
+	model: app.User,
+	url: '/api/users'
 });
 
 $().ready(function(){
 	$(function(){
-		$( '#releaseDate' ).datepicker();
-		new app.LibraryView( books );
+		$( '#birthDate' ).datepicker();
+		$('#updateBirthDate').datepicker();
+		new app.UserCollectionView( users );
+		
 	});
 });

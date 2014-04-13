@@ -2,55 +2,72 @@ body {
 	background-color: #eee;
 }
 
-.bookContainer {
-	outline: 1px solid #aaa;
-	width: 400px;
-	height: 220px;
+.userInput {
+		float: left;
+		display: inline-block;
+}
+
+.contactData {
+		color:gray;
+		padding-right:15px;
+		display:inline-block;
+}
+.contactLabel {
+		color:#5A8F29;
+		padding-right:15px;
+}
+.userContainer {
+	
+	width: 350px;
+	height: 160px;
 	background-color: #fff;
 	float: left;
 	margin: 5px;
+	border-radius: 10px;
 }
 
-.bookContainer img {
+.userContainer img {
 	float: left;
 	margin: 10px;
 }
 
-.bookContainer ul {
+.userContainer ul {
 	list-style-type: none;
 	margin-bottom: 0;
 }
 
-.bookContainer button {
-	float: right;
-	margin: 10px;
+.userContainer button {
+	float: left;
+	margin: 5px 0px 0px 40px;
 }
 
-#addBook label {
+#addUser label {
 	width: 100px;
 	margin-right: 10px;
 	text-align: right;
 	line-height: 25px;
 }
 
-#addBook label, #addBook input {
+#addUser label, #addUser input {
 	display: block;
 	margin-bottom: 10px;
 	float: left;
 }
 
-#addBook button {
+#addUser button {
 	display: block;
-	margin: 5px 20px 10px 10px;
-	float: right;
+	margin: 20px 20px 10px 40px;
+	padding:10px;
+	width: 200px;
+	float: left;
 	clear: both;
 }
 
-#addBook div{
-	width: 550px;
+#addUser div{
+	width: 400px;
 }
 
-#addBook div:after {
+#addUser div:after {
 	content: "";
 	display: block;
 	height: 0;
@@ -58,4 +75,50 @@ body {
 	clear: both;
 	font-size: 0;
 	line-height: 0;
+}
+
+#updateUser label {
+	width: 100px;
+	margin-right: 10px;
+	text-align: right;
+	line-height: 25px;
+}
+
+#updateUser label, #addUser input {
+	display: block;
+	margin-bottom: 10px;
+	float: left;
+}
+
+#updateUser button {
+	display: block;
+	margin: 20px 20px 10px 40px;
+	padding:10px;
+	width: 200px;
+	float: left;
+	clear: both;
+}
+
+#updateUser div{
+	width: 300px;
+	padding-right: 400px;
+}
+
+#updateUser div:after {
+	content: "";
+	display: block;
+	height: 0;
+	visibility: hidden;
+	clear: both;
+	font-size: 0;
+	line-height: 0;
+}
+
+#addNewUser{
+	float: left;
+	display: inline-block;
+}
+#editExistingUser{
+	float: left;
+	display: block;
 }
